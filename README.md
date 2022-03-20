@@ -20,6 +20,11 @@
 
     // Retorna uma foto de um cachorro em foto
 ```
+```ts
+    !dog:'raça'
+
+    // Retorna uma foto de um cachorro de uma raça em foto
+```
 **Informações sobre o valorant**
 ```ts
     !valval:agents
