@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --ignore-watch node_modules index.ts",
+    "dev": "ts-node-dev --respawn --ignore-watch node_modules src/index.ts",
     "build": "npx tsc && ts-node utils/build.ts",
     "start": "node index.js"
   },

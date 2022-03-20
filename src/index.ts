@@ -66,8 +66,8 @@ client.on('messageCreate', async msg => {
                 message: string
                 status: string
             }
-    
-            const data: Dog = await (await axios.get('https://dog.ceo/api/breeds/image/random')).data
+
+            const data: Dog = await (await axios.get(args[0] ? `https://dog.ceo/api/breed/${args[0]}/images/random` : 'https://dog.ceo/api/breeds/image/random')).data
             
             msg.reply({
                 files: [
@@ -118,6 +118,8 @@ client.on('messageCreate', async msg => {
                 
                 msg.reply(msgArmas)
             }
+        } else if (command === '') {
+
         }
     }
 
