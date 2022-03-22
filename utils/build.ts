@@ -13,24 +13,22 @@ if (fs.existsSync(path.resolve(__dirname, '..', 'Bot-Discord'))) {
 }
 
 function build() {
-    fs.mkdirSync(path.resolve(__dirname, '..', 'Bot-Discord'))
-
-    fs.renameSync(path.resolve(__dirname, '..', 'dist'), path.resolve(__dirname, '..', 'Bot-Discord', 'dist'))
+    fs.renameSync(path.resolve(__dirname, '..', 'dist'), path.resolve(__dirname, '..', 'Bot-Discord'))
 
     fs.copyFileSync(path.resolve(__dirname, '..', 'package.json'), path.resolve(__dirname, '..', 'Bot-Discord', 'package.json'))
 
-    fs.copyFileSync(path.resolve(__dirname, '..', 'README.md'), path.resolve(__dirname, '..', 'Bot-Discord', 'README.md'))
-    
     fs.copyFileSync(path.resolve(__dirname, '..', '.env'), path.resolve(__dirname, '..', 'Bot-Discord', '.env'))
+
+    fs.copyFileSync(path.resolve(__dirname, '..', 'README.md'), path.resolve(__dirname, '..', 'Bot-Discord', 'README.md'))
 
     if (fs.existsSync(path.resolve(__dirname, '..', 'Bot-Discord.zip'))) {
         fs.rm(path.resolve(__dirname, '..', 'Bot-Discord.zip'), {
             recursive: true
         }, () => {
-            createZip()
+            //createZip()
         })
     } else {
-        createZip()
+        //createZip()
     }
 }
 
@@ -38,7 +36,7 @@ function createZip() {
     const out = fs.createWriteStream(path.resolve(__dirname, '..', 'Bot-Discord.zip'))
 
     const zip = archiver('zip')
-    
+
     zip.pipe(out)
 
     zip.directory(path.resolve(__dirname, '..', 'Bot-Discord'), false)
@@ -47,7 +45,7 @@ function createZip() {
         fs.rm(path.resolve(__dirname, '..', 'Bot-Discord'), {
             recursive: true
         }, () => {
-            
+
         })
     })
 }

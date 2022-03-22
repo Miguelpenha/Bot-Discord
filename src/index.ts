@@ -171,7 +171,11 @@ client.on('messageCreate', async msg => {
                 msg.reply(members.length >=1 ? messageMembers : 'Não existem usúarios cadastrados')
             }
         } else if (command === 'help') {
-            msg.reply(fs.readFileSync(path.resolve(__dirname, '../', 'README.md')).toString('utf-8'))
+            if (fs.existsSync(path.resolve(__dirname, '../', 'README.md'))) {
+                msg.reply(fs.readFileSync(path.resolve(__dirname, '../', 'README.md')).toString('utf-8'))
+            } else {
+                msg.reply(fs.readFileSync(path.resolve(__dirname, 'README.md')).toString('utf-8'))
+            }
         } else {
             msg.reply('Esse comando não existe, digite `!help` para ajuda')
         }
