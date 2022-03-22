@@ -25,10 +25,10 @@ function build() {
         fs.rm(path.resolve(__dirname, '..', 'Bot-Discord.zip'), {
             recursive: true
         }, () => {
-            //createZip()
+            createZip()
         })
     } else {
-        //createZip()
+        createZip()
     }
 }
 
