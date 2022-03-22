@@ -3,6 +3,12 @@
 
 # Comandos
 
+**Ajuda**
+```ts
+    !help
+    
+    // Retorna uma lista dos comandos
+```
 **Foto de cato**
 ```ts
     !cat:v1
