@@ -36,3 +36,24 @@
 
     // Retorna as armas do Valorant
 ```
+**Membros**
+```ts
+    !members
+
+    // Retorna os membros cadastrados
+```
+```ts
+    !members:register:'name'
+
+    // Cadastrar um membro
+```
+```ts
+    !members:delete:'name'
+
+    // Deleta um membro
+```
+```ts
+    !members:delete
+
+    // Deleta todos os membros
+```

@@ -13,9 +13,13 @@ if (fs.existsSync(path.resolve(__dirname, '..', 'Bot-Discord'))) {
 }
 
 function build() {
-    fs.renameSync(path.resolve(__dirname, '..', 'dist'), path.resolve(__dirname, '..', 'Bot-Discord'))
+    fs.mkdirSync(path.resolve(__dirname, '..', 'Bot-Discord'))
+
+    fs.renameSync(path.resolve(__dirname, '..', 'dist'), path.resolve(__dirname, '..', 'Bot-Discord', 'dist'))
 
     fs.copyFileSync(path.resolve(__dirname, '..', 'package.json'), path.resolve(__dirname, '..', 'Bot-Discord', 'package.json'))
+
+    fs.copyFileSync(path.resolve(__dirname, '..', 'README.md'), path.resolve(__dirname, '..', 'Bot-Discord', 'README.md'))
     
     fs.copyFileSync(path.resolve(__dirname, '..', '.env'), path.resolve(__dirname, '..', 'Bot-Discord', '.env'))
 

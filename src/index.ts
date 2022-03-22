@@ -1,6 +1,12 @@
 import 'dotenv/config'
+import mongoose from 'mongoose'
 import { Client, Intents } from 'discord.js'
 import axios from 'axios'
+import membersModels from './models/member'
+import fs from 'fs'
+import path from 'path'
+
+mongoose.connect(process.env.URL_MONGO)
 
 const client = new Client({
     intents: [
@@ -67,13 +73,17 @@ client.on('messageCreate', async msg => {
                 status: string
             }
 
-            const data: Dog = await (await axios.get(args[0] ? `https://dog.ceo/api/breed/${args[0]}/images/random` : 'https://dog.ceo/api/breeds/image/random')).data
+            try {
+                const data: Dog = await (await axios.get(args[0] ? `https://dog.ceo/api/breed/${args[0]}/images/random` : 'https://dog.ceo/api/breeds/image/random')).data
             
-            msg.reply({
-                files: [
-                    data.message
-                ]
-            })
+                msg.reply({
+                    files: [
+                        data.message
+                    ]
+                })
+            } catch {
+                msg.reply(args[0] ? 'Essa raça não está disponível \:confused:' : 'Houve um erro ao pegar a foto \:confused:')
+            }
         } else if (command === 'valval') {
             if (args[0] === 'agents') {
                 interface Agents {
@@ -118,8 +128,52 @@ client.on('messageCreate', async msg => {
                 
                 msg.reply(msgArmas)
             }
-        } else if (command === '') {
+        } else if (command === 'members') {
+            if (args[0]) {
+                if (args[0] === 'register' && args[1]) {
+                    const memberExists = await membersModels.findOne({nickName: msg.author.username})
 
+                    if (memberExists) {
+                        msg.reply('Esse usúario já está cadastrado \:confused:')
+                    } else {
+                        await membersModels.create({
+                            name: args[1],
+                            nickName: msg.author.username
+                        })
+    
+                        msg.reply('Usúario cadastrado com sucesso \:smile:')
+                    }
+                } else if (args[0] === 'delete' && args[1]) {
+                    if (process.env.ID_ADMIN === msg.author.id) {
+                        await membersModels.deleteOne({name: args[1]})
+
+                        msg.reply('Usúario deletado com sucesso \:smile:')
+                    } else {
+                        msg.reply('Você não tem permisão para excluir um usuário \:confused:')
+                    }
+                } else if (args[0] === 'delete') {
+                    if (process.env.ID_ADMIN === msg.author.id) {
+                        await membersModels.deleteMany()!
+
+                        msg.reply('Usúarios deletados com sucesso \:smile:')
+                    } else {
+                        msg.reply('Você não tem permisão para excluir um usuário \:confused:')
+                    }
+                } else {
+                    msg.reply('Esse comando não existe, digite `!help` para ajuda')
+                }
+            } else {
+                const members = await membersModels.find()
+                let messageMembers = 'Participantes: \n\n'
+
+                members.map((member, index) => messageMembers += `${member.name}${index === members.length-1 ? '' : '\n'}`)
+
+                msg.reply(members.length >=1 ? messageMembers : 'Não existem usúarios cadastrados')
+            }
+        } else if (command === 'help') {
+            msg.reply(fs.readFileSync(path.resolve(__dirname, '../', 'README.md')).toString('utf-8'))
+        } else {
+            msg.reply('Esse comando não existe, digite `!help` para ajuda')
         }
     }
 

@@ -6,6 +6,8 @@ declare global {
         URL_INVITE: string
         ACCEPTED_CHANNELS: string
         API_KEY_FRASES: string
+        URL_MONGO: string
+        ID_ADMIN: string
       }
     }
 }
