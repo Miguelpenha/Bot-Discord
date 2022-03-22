@@ -168,7 +168,7 @@ client.on('messageCreate', async msg => {
 
                 members.map((member, index) => messageMembers += `${member.name}${index === members.length-1 ? '' : '\n'}`)
 
-                msg.reply(members.length >=1 ? messageMembers : 'Não existem usúarios cadastrados')
+                msg.reply(members.length >=1 ? messageMembers : "Não existem usúarios cadastrados \:confused:, digite `!members:register:'seu nome'` para se cadastrar")
             }
         } else if (command === 'help') {
             if (fs.existsSync(path.resolve(__dirname, '../', 'README.md'))) {
