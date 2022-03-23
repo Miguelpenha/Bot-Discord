@@ -16,15 +16,17 @@ const client = new Client({
     ]
 })
 
+client.on('ready', async () => console.log('Bot rodando'))
+
 client.on('messageCreate', async msg => {
     if (msg.author.bot) return
     if (!msg.content.startsWith(process.env.PREFIX)) return
-
+    
     const commandBody = msg.content.slice(process.env.PREFIX.length)
     const args = commandBody.split(':')
     const command = args.shift().toLowerCase()
-    
     if (msg.channel.isText()) {
+        console.log(msg.content)
         if (command === 'users') {
             const members = await msg.guild.members.fetch()
             
@@ -154,7 +156,7 @@ client.on('messageCreate', async msg => {
                 } else if (args[0] === 'delete') {
                     if (process.env.ID_ADMIN === msg.author.id) {
                         await membersModels.deleteMany()!
-
+                        
                         msg.reply('Usúarios deletados com sucesso \:smile:')
                     } else {
                         msg.reply('Você não tem permisão para excluir um usuário \:confused:')
@@ -170,6 +172,13 @@ client.on('messageCreate', async msg => {
 
                 msg.reply(members.length >=1 ? messageMembers : "Não existem usúarios cadastrados \:confused:, digite `!members:register:'seu nome'` para se cadastrar")
             }
+        } else if (command === 'roles') {
+            const roles = (await msg.guild.roles.fetch()).map(role => role)
+            let msgRoles = 'Cargos: \n\n'
+
+            roles.map((role, index) => msgRoles += `${role.name.includes('@') ? role.name : `<@&${role.id}>`}${index === roles.length-1 ? '' : '\n'}`)
+
+            msg.reply(msgRoles)
         } else if (command === 'help') {
             if (fs.existsSync(path.resolve(__dirname, '../', 'README.md'))) {
                 msg.reply(fs.readFileSync(path.resolve(__dirname, '../', 'README.md')).toString('utf-8'))

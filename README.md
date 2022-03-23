@@ -63,3 +63,9 @@
 
     // Deleta todos os membros
 ```
+**Cargos**
+```ts
+    !roles
+
+    // Retorna os cargos do servidor
+```
