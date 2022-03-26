@@ -1,10 +1,14 @@
 import 'dotenv/config'
 import mongoose from 'mongoose'
 import { Client, Intents } from 'discord.js'
-import axios from 'axios'
 import membersModels from './models/member'
 import fs from 'fs'
 import path from 'path'
+import users from './commands/users'
+import { v1, v2 } from './commands/cat'
+import dog from './commands/dog'
+import { agents, armas } from './commands/valval'
+import roles from './commands/roles'
 
 mongoose.connect(process.env.URL_MONGO)
 
@@ -27,108 +31,22 @@ client.on('messageCreate', async msg => {
     const command = args.shift().toLowerCase()
     if (msg.channel.isText()) {
         console.log(msg.content)
+
         if (command === 'users') {
-            const members = await msg.guild.members.fetch()
-            
-            let msgMembers = 'Membros do servidor: \n\n'
-            let cont = 0
-            
-            members.map(member => {
-                msgMembers += `${member.nickname || member.displayName}${msg.guild.memberCount-1 > cont ? ',\n' : ''}`
-                cont ++
-            })
-            
-            msg.reply(msgMembers)
-            //msg.reply(`O canal ${channelName} não está autorizado a executar comandos`)
+            await users(msg)
         } else if (command === 'cat') {
             if (args[0] === 'v1') {
-                interface Cat {
-                    id: string
-                    created_at: string
-                    tags: string[]
-                    url: string
-                }
-        
-                const data: Cat = await (await axios.get('https://cataas.com/cat/cute?json=true')).data
-                
-                msg.reply(`https://cataas.com/cat/${data.id}`)
+                await v1(msg)
             } else if (args[0] === 'v2') {
-                interface Cat {
-                    breeds: string[]
-                    id: string
-                    url: string
-                    width: number
-                    height: number
-                }
-        
-                const data: Cat = (await (await axios.get('https://api.thecatapi.com/v1/images/search')).data)[0]
-                
-                msg.reply({
-                    files: [
-                        data.url
-                    ]
-                })
+                await v2(msg)
             }
         } else if (command === 'dog') {
-            interface Dog {
-                message: string
-                status: string
-            }
-
-            try {
-                const data: Dog = await (await axios.get(args[0] ? `https://dog.ceo/api/breed/${args[0]}/images/random` : 'https://dog.ceo/api/breeds/image/random')).data
-            
-                msg.reply({
-                    files: [
-                        data.message
-                    ]
-                })
-            } catch {
-                msg.reply(args[0] ? 'Essa raça não está disponível \:confused:' : 'Houve um erro ao pegar a foto \:confused:')
-            }
+            await dog(args, msg)
         } else if (command === 'valval') {
             if (args[0] === 'agents') {
-                interface Agents {
-                    uuid: string
-                    displayName: string
-                }
-        
-                const agents: Agents[] = await (await axios.get('https://valorant-api.com/v1/agents?isPlayableCharacter=true', {
-                    params: {
-                        'language': 'pt-BR'
-                    }
-                })).data.data
-                
-                let msgAgents = 'Agentes do valorant: \n\n'
-                let cont = 0
-                
-                agents.map(member => {
-                    msgAgents += `${member.displayName}${agents.length-1 > cont ? ',\n' : ''}`
-                    cont ++
-                })
-                
-                msg.reply(msgAgents)
+                await agents(msg)
             } else if (args[0] === 'armas') {
-                interface Armas {
-                    uuid: string
-                    displayName: string
-                }
-
-                const armas: Armas[] = await (await axios.get('https://valorant-api.com/v1/weapons', {
-                    params: {
-                        'language': 'pt-BR'
-                    }
-                })).data.data
-                
-                let msgArmas = 'Armas do valorant: \n\n'
-                let cont = 0
-                
-                armas.map(arma => {
-                    msgArmas += `${arma.displayName}${armas.length-1 > cont ? ',\n' : ''}`
-                    cont ++
-                })
-                
-                msg.reply(msgArmas)
+                await armas(msg)
             }
         } else if (command === 'members') {
             if (args[0]) {
@@ -173,12 +91,7 @@ client.on('messageCreate', async msg => {
                 msg.reply(members.length >=1 ? messageMembers : "Não existem usúarios cadastrados \:confused:, digite `!members:register:'seu nome'` para se cadastrar")
             }
         } else if (command === 'roles') {
-            const roles = (await msg.guild.roles.fetch()).map(role => role)
-            let msgRoles = 'Cargos: \n\n'
-
-            roles.map((role, index) => msgRoles += `${role.name.includes('@') ? role.name : `<@&${role.id}>`}${index === roles.length-1 ? '' : '\n'}`)
-
-            msg.reply(msgRoles)
+            roles(msg)
         } else if (command === 'help') {
             if (fs.existsSync(path.resolve(__dirname, '../', 'README.md'))) {
                 msg.reply(fs.readFileSync(path.resolve(__dirname, '../', 'README.md')).toString('utf-8'))
