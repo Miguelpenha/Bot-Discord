@@ -1,14 +1,14 @@
 import 'dotenv/config'
 import mongoose from 'mongoose'
 import { Client, Intents } from 'discord.js'
-import membersModels from './models/member'
-import fs from 'fs'
-import path from 'path'
 import users from './commands/users'
 import { v1, v2 } from './commands/cat'
 import dog from './commands/dog'
 import { agents, armas } from './commands/valval'
+import { register, deleteUser, deleteUseFull, members } from './commands/members'
+import msgHelp from './utils/msgHelp'
 import roles from './commands/roles'
+import help from './commands/help'
 
 mongoose.connect(process.env.URL_MONGO)
 
@@ -51,59 +51,25 @@ client.on('messageCreate', async msg => {
         } else if (command === 'members') {
             if (args[0]) {
                 if (args[0] === 'register' && args[1]) {
-                    const memberExists = await membersModels.findOne({nickName: msg.author.username})
-
-                    if (memberExists) {
-                        msg.reply('Esse usúario já está cadastrado \:confused:')
-                    } else {
-                        await membersModels.create({
-                            name: args[1],
-                            nickName: msg.author.username
-                        })
-    
-                        msg.reply('Usúario cadastrado com sucesso \:smile:')
-                    }
+                    await register(msg, args)
                 } else if (args[0] === 'delete' && args[1]) {
-                    if (process.env.ID_ADMIN === msg.author.id) {
-                        await membersModels.deleteOne({name: args[1]})
-
-                        msg.reply('Usúario deletado com sucesso \:smile:')
-                    } else {
-                        msg.reply('Você não tem permisão para excluir um usuário \:confused:')
-                    }
+                    await deleteUser(msg, args)
                 } else if (args[0] === 'delete') {
-                    if (process.env.ID_ADMIN === msg.author.id) {
-                        await membersModels.deleteMany()!
-                        
-                        msg.reply('Usúarios deletados com sucesso \:smile:')
-                    } else {
-                        msg.reply('Você não tem permisão para excluir um usuário \:confused:')
-                    }
+                    await deleteUseFull(msg)
                 } else {
-                    msg.reply('Esse comando não existe, digite `!help` para ajuda')
+                    msgHelp(msg)
                 }
             } else {
-                const members = await membersModels.find()
-                let messageMembers = 'Participantes: \n\n'
-
-                members.map((member, index) => messageMembers += `${member.name}${index === members.length-1 ? '' : '\n'}`)
-
-                msg.reply(members.length >=1 ? messageMembers : "Não existem usúarios cadastrados \:confused:, digite `!members:register:'seu nome'` para se cadastrar")
+                await members(msg)
             }
         } else if (command === 'roles') {
-            roles(msg)
+            await roles(msg)
         } else if (command === 'help') {
-            if (fs.existsSync(path.resolve(__dirname, '../', 'README.md'))) {
-                msg.reply(fs.readFileSync(path.resolve(__dirname, '../', 'README.md')).toString('utf-8'))
-            } else {
-                msg.reply(fs.readFileSync(path.resolve(__dirname, 'README.md')).toString('utf-8'))
-            }
+            help(msg)
         } else {
-            msg.reply('Esse comando não existe, digite `!help` para ajuda')
+            msgHelp(msg)
         }
     }
-
-    console.log(command)
 })
 
 client.login(process.env.TOKEN)
