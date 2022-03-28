@@ -1,7 +1,7 @@
 {
   "name": "Bot-Discord",
   "version": "1.0.0",
-  "description": "",
+  "description": "Um bot para usar no Discord",
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --ignore-watch node_modules src/index.ts",
@@ -9,7 +9,7 @@
     "start": "node index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Miguel Penha <miguel.penha1@gmail.com> (https://portfolio-sand-xi.vercel.app/)",
   "license": "MIT",
   "dependencies": {
     "archiver": "^5.3.0",
