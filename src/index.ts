@@ -5,10 +5,10 @@ import users from './commands/users'
 import { v1, v2 } from './commands/cat'
 import dog from './commands/dog'
 import { agents, armas } from './commands/valval'
-import { register, deleteUser, deleteUseFull, members } from './commands/members'
 import msgHelp from './utils/msgHelp'
 import roles from './commands/roles'
 import help from './commands/help'
+import { registerSchedule, showSchedule, deleteSchedule, schedules } from './commands/schedules'
 
 mongoose.connect(process.env.URL_MONGO)
 
@@ -48,24 +48,22 @@ client.on('messageCreate', async msg => {
             } else if (args[0] === 'armas') {
                 await armas(msg)
             }
-        } else if (command === 'members') {
-            if (args[0]) {
-                if (args[0] === 'register' && args[1]) {
-                    await register(msg, args)
-                } else if (args[0] === 'delete' && args[1]) {
-                    await deleteUser(msg, args)
-                } else if (args[0] === 'delete') {
-                    await deleteUseFull(msg)
-                } else {
-                    msgHelp(msg)
-                }
-            } else {
-                await members(msg)
-            }
         } else if (command === 'roles') {
             await roles(msg)
         } else if (command === 'help') {
             help(msg)
+        } else if (command === 'schedules') {
+            if (args[0]) {
+                if (args[0] === 'register' && args[1] && args[2]) {
+                    await registerSchedule(msg, args)
+                } else if (args[0] === 'delete' && args[1]) {
+                    await deleteSchedule(msg, args)
+                } else if (args[0]) {
+                    await showSchedule(msg, args)
+                }
+            } else {
+                await schedules(msg)
+            }
         } else {
             msgHelp(msg)
         }

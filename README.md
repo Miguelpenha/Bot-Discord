@@ -42,30 +42,30 @@
 
     // Retorna as armas do Valorant
 ```
-**Membros**
-```ts
-    !members
-
-    // Retorna os membros cadastrados
-```
-```ts
-    !members:register:'name'
-
-    // Cadastrar um membro
-```
-```ts
-    !members:delete:'name'
-
-    // Deleta um membro
-```
-```ts
-    !members:delete
-
-    // Deleta todos os membros
-```
 **Cargos**
 ```ts
     !roles
 
     // Retorna os cargos do servidor
+```
+**Agendas**
+```ts
+    !schedules
+
+    // Retorna os agendas cadastradas
+```
+```ts
+    !schedules:'name'
+
+    // Retorna uma agenda com esse nome
+```
+```ts
+    !schedules:register:'name':'horary':'task'
+
+    // Cadastrar uma agenda
+```
+```ts
+    !schedules:delete:'name'
+
+    // Deleta uma agenda
 ```
