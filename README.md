@@ -52,7 +52,7 @@
 ```ts
     !schedules
 
-    // Retorna os agendas cadastradas
+    // Retorna as agendas cadastradas
 ```
 ```ts
     !schedules:'name'
