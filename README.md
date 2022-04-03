@@ -9,7 +9,7 @@
     
     // Retorna uma lista dos comandos
 ```
-**Foto de cato**
+**Foto de gato**
 ```ts
     !cat:v1
     
@@ -18,7 +18,7 @@
 ```ts
     !cat:v2
 
-    // Retorna uma foto de cato em foto
+    // Retorna uma foto de gato em foto
 ```
 **Foto de cachorro**
 ```ts
