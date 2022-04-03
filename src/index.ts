@@ -10,7 +10,7 @@ import roles from './commands/roles'
 import help from './commands/help'
 import { registerSchedule, showSchedule, deleteSchedule, schedules } from './commands/schedules'
 
-mongoose.connect(process.env.URL_MONGO)
+mongoose.connect(process.env.NODE_ENV === 'production' ? process.env.URL_MONGO_PRODUCTION : process.env.URL_MONGO_DEVELOPMENT)
 
 const client = new Client({
     intents: [
