@@ -69,3 +69,9 @@
 
     // Deleta uma agenda
 ```
+**Pixel Art**
+```ts
+    !pixel-art:'id da pixel art'
+
+    // Retorna uma pixel arte
+```

@@ -9,6 +9,7 @@ import msgHelp from './utils/msgHelp'
 import roles from './commands/roles'
 import help from './commands/help'
 import { registerSchedule, showSchedule, deleteSchedule, schedules } from './commands/schedules'
+import pixelArt from './commands/pixelArt'
 
 mongoose.connect(process.env.NODE_ENV === 'production' ? process.env.URL_MONGO_PRODUCTION : process.env.URL_MONGO_DEVELOPMENT)
 
@@ -64,6 +65,8 @@ client.on('messageCreate', async msg => {
             } else {
                 await schedules(msg)
             }
+        } else if (command === 'pixel-art') {
+            await pixelArt(msg, args)
         } else {
             msgHelp(msg)
         }
