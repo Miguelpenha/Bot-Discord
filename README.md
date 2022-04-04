@@ -69,6 +69,11 @@
 
     // Deleta uma agenda
 ```
+```ts
+    !schedules:delete
+
+    // Deleta todas as agendas
+```
 **Pixel Art**
 ```ts
     !pixel-art:'id da pixel art'

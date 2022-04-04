@@ -8,7 +8,7 @@ import { agents, armas } from './commands/valval'
 import msgHelp from './utils/msgHelp'
 import roles from './commands/roles'
 import help from './commands/help'
-import { registerSchedule, showSchedule, deleteSchedule, schedules } from './commands/schedules'
+import { registerSchedule, showSchedule, deleteSchedule, deleteFullSchedules, schedules } from './commands/schedules'
 import pixelArt from './commands/pixelArt'
 
 mongoose.connect(process.env.NODE_ENV === 'production' ? process.env.URL_MONGO_PRODUCTION : process.env.URL_MONGO_DEVELOPMENT)
@@ -59,6 +59,8 @@ client.on('messageCreate', async msg => {
                     await registerSchedule(msg, args)
                 } else if (args[0] === 'delete' && args[1]) {
                     await deleteSchedule(msg, args)
+                } else if (args[0] === 'delete') {
+                    await deleteFullSchedules(msg)
                 } else if (args[0]) {
                     await showSchedule(msg, args)
                 }
