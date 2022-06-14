@@ -12,21 +12,21 @@
   "author": "Miguel Penha <miguel.penha1@gmail.com> (https://portfolio-sand-xi.vercel.app/)",
   "license": "MIT",
   "dependencies": {
-    "archiver": "^5.3.0",
+    "archiver": "^5.3.1",
     "axios": "^0.26.0",
-    "discord.js": "^13.6.0",
-    "mongoose": "^6.2.7",
+    "discord.js": "^13.8.0",
+    "mongoose": "^6.3.8",
     "shelljs": "^0.8.5"
   },
   "devDependencies": {
     "@types/archiver": "^5.3.1",
     "@types/axios": "^0.14.0",
     "@types/mongoose": "^5.11.97",
-    "@types/node": "^17.0.21",
+    "@types/node": "^17.0.42",
     "@types/shelljs": "^0.8.11",
-    "dotenv": "^16.0.0",
-    "ts-node": "^10.7.0",
+    "dotenv": "^16.0.1",
+    "ts-node": "^10.8.1",
     "ts-node-dev": "^1.1.8",
-    "typescript": "^4.5.5"
+    "typescript": "^4.7.3"
   }
 }
