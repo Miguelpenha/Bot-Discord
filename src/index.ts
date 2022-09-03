@@ -10,6 +10,8 @@ import roles from './commands/roles'
 import help from './commands/help'
 import { registerSchedule, showSchedule, deleteSchedule, deleteFullSchedules, schedules } from './commands/schedules'
 import pixelArt from './commands/pixelArt'
+import { blueBright, redBright } from 'chalk'
+import commands from './utils/commands'
 
 mongoose.connect(process.env.NODE_ENV === 'production' ? process.env.URL_MONGO_PRODUCTION : process.env.URL_MONGO_DEVELOPMENT)
 
@@ -30,46 +32,52 @@ client.on('messageCreate', async msg => {
     const commandBody = msg.content.slice(process.env.PREFIX.length)
     const args = commandBody.split(':')
     const command = args.shift().toLowerCase()
-    if (msg.channel.isText()) {
-        console.log(msg.content)
 
-        if (command === 'users') {
-            await users(msg)
-        } else if (command === 'cat') {
-            if (args[0] === 'v1') {
-                await v1(msg)
-            } else if (args[0] === 'v2') {
-                await v2(msg)
-            }
-        } else if (command === 'dog') {
-            await dog(args, msg)
-        } else if (command === 'valval') {
-            if (args[0] === 'agents') {
-                await agents(msg)
-            } else if (args[0] === 'armas') {
-                await armas(msg)
-            }
-        } else if (command === 'roles') {
-            await roles(msg)
-        } else if (command === 'help') {
-            help(msg)
-        } else if (command === 'schedules') {
-            if (args[0]) {
-                if (args[0] === 'register' && args[1] && args[2]) {
-                    await registerSchedule(msg, args)
-                } else if (args[0] === 'delete' && args[1]) {
-                    await deleteSchedule(msg, args)
-                } else if (args[0] === 'delete') {
-                    await deleteFullSchedules(msg)
-                } else if (args[0]) {
-                    await showSchedule(msg, args)
+    if (msg.channel.isText()) {
+        if (commands.includes(command)) {
+            console.log(blueBright(`>> ${msg.content}`))
+
+            if (command === 'users') {
+                await users(msg)
+            } else if (command === 'cat') {
+                if (args[0] === 'v1') {
+                    await v1(msg)
+                } else if (args[0] === 'v2') {
+                    await v2(msg)
                 }
-            } else {
-                await schedules(msg)
+            } else if (command === 'dog') {
+                await dog(args, msg)
+            } else if (command === 'valval') {
+                if (args[0] === 'agents') {
+                    await agents(msg)
+                } else if (args[0] === 'armas') {
+                    await armas(msg)
+                }
+            } else if (command === 'roles') {
+                await roles(msg)
+            } else if (command === 'help') {
+                help(msg)
+            } else if (command === 'schedules') {
+                if (args[0]) {
+                    if (args[0] === 'register' && args[1] && args[2]) {
+                        await registerSchedule(msg, args)
+                    } else if (args[0] === 'delete' && args[1]) {
+                        await deleteSchedule(msg, args)
+                    } else if (args[0] === 'delete') {
+                        await deleteFullSchedules(msg)
+                    } else if (args[0]) {
+                        await showSchedule(msg, args)
+                    }
+                } else {
+                    await schedules(msg)
+                }
+            } else if (command === 'pixel-art') {
+                await pixelArt(msg, args)
             }
-        } else if (command === 'pixel-art') {
-            await pixelArt(msg, args)
         } else {
+            console.log(redBright('>> Command not found'))
+            console.log(redBright(`    >> ${msg.content}`))
+            
             msgHelp(msg)
         }
     }
