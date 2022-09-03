@@ -10,6 +10,7 @@ import roles from './commands/roles'
 import help from './commands/help'
 import { registerSchedule, showSchedule, deleteSchedule, deleteFullSchedules, schedules } from './commands/schedules'
 import pixelArt from './commands/pixelArt'
+import showPixelArts from './commands/showPixelArts'
 import { blueBright, redBright } from 'chalk'
 import commands from './utils/commands'
 
@@ -72,7 +73,11 @@ client.on('messageCreate', async msg => {
                     await schedules(msg)
                 }
             } else if (command === 'pixel-art') {
-                await pixelArt(msg, args)
+                if (args[0]) {
+                    await pixelArt(msg, args[0])
+                } else {
+                    await showPixelArts(msg)
+                }
             }
         } else {
             console.log(redBright('>> Command not found'))
