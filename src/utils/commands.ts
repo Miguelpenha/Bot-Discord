@@ -1,6 +1,4 @@
-import { TypeCommands } from "../types"
-
-const commands: TypeCommands[] = [
+const commands = [
     'users',
     'cat',
     'dog',
