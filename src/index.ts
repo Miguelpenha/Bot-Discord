@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import mongoose from 'mongoose'
 import { Client, Intents } from 'discord.js'
+import { TypeCommands } from './types'
 import users from './commands/users'
 import { v1, v2 } from './commands/cat'
 import dog from './commands/dog'
@@ -32,7 +33,7 @@ client.on('messageCreate', async msg => {
     
     const commandBody = msg.content.slice(process.env.PREFIX.length)
     const args = commandBody.split(':')
-    const command = args.shift().toLowerCase()
+    const command = args.shift().toLowerCase() as TypeCommands
 
     if (msg.channel.isText()) {
         if (commands.includes(command)) {
