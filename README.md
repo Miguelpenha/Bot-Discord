@@ -31,7 +31,7 @@
 
     // Retorna uma foto de um cachorro de uma raça em foto
 ```
-**Informações sobre o valorant**
+**Informações sobre o Valorant**
 ```ts
     !valval:agents
 
@@ -75,6 +75,11 @@
     // Deleta todas as agendas
 ```
 **Pixel Art**
+```ts
+    !pixel-art
+
+    // Retorna todas as pixels arts
+```
 ```ts
     !pixel-art:'id da pixel art'
 
