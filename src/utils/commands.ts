@@ -8,7 +8,8 @@ const commands: TypeCommands[] = [
     'roles',
     'help',
     'pixel-art',
-    'image'
+    'image',
+    'pin'
 ]
 
 export default commands
