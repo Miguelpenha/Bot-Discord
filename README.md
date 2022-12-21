@@ -11,14 +11,9 @@
 ```
 **Foto de gato**
 ```ts
-    !cat:v1
+    !cat
     
     // Retorna uma foto de gato em link
-```
-```ts
-    !cat:v2
-
-    // Retorna uma foto de gato em foto
 ```
 **Foto de cachorro**
 ```ts
@@ -30,6 +25,17 @@
     !dog:'raça'
 
     // Retorna uma foto de um cachorro de uma raça em foto
+```
+**Imagem**
+```ts
+    !image
+    
+    // Retorna uma imagem
+```
+```ts
+    !image:'search'
+    
+    // Retorna uma imagem com base nessa pesquisa
 ```
 **Informações sobre o Valorant**
 ```ts

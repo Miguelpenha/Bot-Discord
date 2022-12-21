@@ -7,8 +7,8 @@ const commands: TypeCommands[] = [
     'valval',
     'roles',
     'help',
-    'schedules',
-    'pixel-art'
+    'pixel-art',
+    'image'
 ]
 
 export default commands

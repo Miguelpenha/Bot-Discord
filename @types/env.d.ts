@@ -5,9 +5,6 @@ declare global {
         PREFIX: string
         URL_INVITE: string
         ACCEPTED_CHANNELS: string
-        API_KEY_FRASES: string
-        URL_MONGO_PRODUCTION: string
-        URL_MONGO_DEVELOPMENT: string
         ID_ADMIN: string
       }
     }
