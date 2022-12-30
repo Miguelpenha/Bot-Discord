@@ -11,7 +11,6 @@ import help from './commands/help'
 import pixelArt from './commands/pixelArt'
 import showPixelArts from './commands/showPixelArts'
 import image from './commands/image'
-import pin from './commands/pin'
 import { blueBright, redBright } from 'chalk'
 import commands from './utils/commands'
 
@@ -71,8 +70,6 @@ client.on('messageCreate', async msg => {
                 } else {
                     await image(msg)
                 }
-            } else if (command === 'pin') {
-                await pin(msg, args[0])
             }
         } else {
             console.log(redBright('>> Command not found'))

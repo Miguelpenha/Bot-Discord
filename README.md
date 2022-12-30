@@ -91,9 +91,3 @@
 
     // Retorna uma pixel arte
 ```
-**Pin**
-```ts
-    !pin:username/'folder(opcional)'
-
-    // Retorna um pin aleatório
-```
