@@ -9,6 +9,8 @@ function build() {
 
     fs.copyFileSync(path.resolve(__dirname, '..', '..', '.env'), path.resolve(__dirname, '..', '..', 'Bot-Discord', '.env'))
 
+    fs.copyFileSync(path.resolve(__dirname, '..', '..', 'discloud.config'), path.resolve(__dirname, '..', '..', 'Bot-Discord', 'discloud.config'))
+
     fs.copyFileSync(path.resolve(__dirname, '..', '..', 'README.md'), path.resolve(__dirname, '..', '..', 'Bot-Discord', 'README.md'))
 
     if (fs.existsSync(path.resolve(__dirname, '..', '..', 'Bot-Discord.zip'))) {
