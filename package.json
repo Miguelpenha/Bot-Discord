@@ -4,9 +4,10 @@
   "description": "Um bot para usar no Discord",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --ignore-watch node_modules src/index.ts",
+    "start": "node index.js",
     "build": "npx tsc && ts-node utils/build",
-    "start": "node index.js"
+    "publish": "npm run build && discloud commit Bot-Discord.zip",
+    "dev": "ts-node-dev --respawn --ignore-watch node_modules src/index.ts"
   },
   "keywords": [],
   "author": "Miguel Penha <miguel.penha1@gmail.com> (https://portfolio-miguelpenha.vercel.app)",

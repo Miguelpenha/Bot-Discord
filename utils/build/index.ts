@@ -1,14 +1,9 @@
 import fs from 'fs'
-import path from 'path'
-import build from './build'
+import { newPath } from './utils'
+import buildFolder from './buildFolder'
 
-if (fs.existsSync(path.resolve(__dirname, '..', 'Bot-Discord'))) {
-    fs.rm(path.resolve(__dirname, '..', 'Bot-Discord'), {
-        recursive: true
-    }, () => {
-        build()
-    })
-} else {
-    build()
-}
+const isExists = fs.existsSync(newPath)
 
+isExists && fs.rmSync(newPath, { recursive: true })
+
+buildFolder()

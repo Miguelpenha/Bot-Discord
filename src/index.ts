@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import { Client, Intents } from 'discord.js'
 import { blueBright, redBright } from 'chalk'
-import commands, { type ICommands, commandsList } from './utils/commands'
+import commands, { type ICommands, commandsList } from './commands'
 
 const client = new Client({
     intents: [

@@ -1,23 +1,20 @@
 import fs from 'fs'
 import path from 'path'
+import { oldPath, newPath } from './utils'
 import archiver from 'archiver'
 
 function createZip() {
-    const out = fs.createWriteStream(path.resolve(__dirname, '..', '..', 'Bot-Discord.zip'))
+    const out = fs.createWriteStream(path.resolve(oldPath, 'Bot-Discord.zip'))
 
     const zip = archiver('zip')
 
     zip.pipe(out)
 
-    zip.directory(path.resolve(__dirname, '..', '..', 'Bot-Discord'), false)
+    zip.directory(newPath, false)
 
-    zip.finalize().then(() => {
-        fs.rm(path.resolve(__dirname, '..', '..', 'Bot-Discord'), {
-            recursive: true
-        }, () => {
-
-        })
-    })
+    zip.finalize().then(() => (
+        fs.rmSync(newPath, { recursive: true })
+    ))
 }
 
 export default createZip
