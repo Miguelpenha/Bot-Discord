@@ -1,13 +1,18 @@
 import { Message } from 'discord.js'
-import fs from 'fs'
 import path from 'path'
+import fs from 'fs'
 
 function help(msg: Message) {
-    if (fs.existsSync(path.resolve(__dirname, '..', '..', 'README.md'))) {
-        msg.reply(fs.readFileSync(path.resolve(__dirname, '..', '..', 'README.md')).toString('utf-8'))
+    const basePath = path.resolve(__dirname, '..')
+    let pathREADME = ''
+
+    if (fs.existsSync(path.resolve(basePath, '..', 'README.md'))) {
+        pathREADME = path.resolve(basePath, '..', 'README.md')
     } else {
-        msg.reply(fs.readFileSync(path.resolve(__dirname, '..', 'README.md')).toString('utf-8'))
+        pathREADME = path.resolve(basePath, 'README.md')
     }
+
+    msg.reply(fs.readFileSync(pathREADME).toString('utf-8'))
 }
 
 export default help

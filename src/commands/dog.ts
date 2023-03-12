@@ -1,14 +1,17 @@
 import { Message } from 'discord.js'
 import axios from 'axios'
 
-interface Dog {
+interface IRequest {
     message: string
-    status: string
 }
 
-async function dog(args: string[], msg: Message) {
+const baseURL = 'https://dog.ceo/api'
+
+async function dog(msg: Message, args: string[]) {
+    const url = args[0] ? `${baseURL}/breed/${args[0]}/images/random` : `${baseURL}/breeds/image/random`
+
     try {
-        const data: Dog = await (await axios.get(args[0] ? `https://dog.ceo/api/breed/${args[0]}/images/random` : 'https://dog.ceo/api/breeds/image/random')).data
+        const { data } = await axios.get<IRequest>(url)
     
         msg.reply({
             files: [
@@ -16,7 +19,11 @@ async function dog(args: string[], msg: Message) {
             ]
         })
     } catch {
-        msg.reply(args[0] ? 'Essa raça não está disponível \:confused:' : 'Houve um erro ao pegar a foto \:confused:')
+        if (args[0]) {
+            msg.reply('Essa raça não está disponível \:confused:')
+        } else {
+            msg.reply('Houve um erro ao pegar a foto \:confused:')
+        }
     }
 }
 

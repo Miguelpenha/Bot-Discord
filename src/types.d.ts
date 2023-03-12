@@ -1,1 +1,0 @@
-export type TypeCommands = 'users' | 'cat' | 'dog' | 'valval' | 'roles' | 'help' | 'pixel-art' | 'image'

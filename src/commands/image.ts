@@ -1,14 +1,28 @@
 import { Message } from 'discord.js'
 import { createApi } from 'unsplash-js'
 
-async function image(msg: Message, query?: string) {
+async function image(msg: Message, args: string[]) {
     const unsplash = createApi({
-        accessKey: 'pZEnSkEec2VUCbSZIHivsJAQea4RG5l4jggq9RU-yVQ'
+        accessKey: process.env.ACCESS_KEY_UNSPLASH
     })
 
-    const image: any = query ? (await unsplash.search.getPhotos({ query })).response.results[0] : (await unsplash.photos.getRandom({})).response
-    
-    msg.reply(image.links.download)
+    let image: any
+
+    if (args[0]) {
+        const { response } = await unsplash.search.getPhotos({ query: args[0] })
+
+        image = response.results[0]
+    } else {
+        const { response } = await unsplash.photos.getRandom({})
+
+        image = response
+    }
+
+    if (image) {
+        msg.reply(image.links.download)
+    } else {
+        msg.reply('Houve um erro ao pegar a imagem \:confused:')
+    }
 }
 
 export default image

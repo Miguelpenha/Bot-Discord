@@ -3,9 +3,9 @@ declare global {
       interface ProcessEnv {
         TOKEN: string
         PREFIX: string
-        URL_INVITE: string
-        ACCEPTED_CHANNELS: string
         ID_ADMIN: string
+        URL_INVITE: string
+        ACCESS_KEY_UNSPLASH: string
       }
     }
 }
