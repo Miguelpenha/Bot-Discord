@@ -1,6 +1,6 @@
 .env
+dist
+Bot-Discord
 node_modules
 Bot-Discord.zip
-Bot-Discord
-dist
 discloud.config

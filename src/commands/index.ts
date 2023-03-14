@@ -14,8 +14,13 @@ const commands = {
     members
 }
 
-export type ICommands = keyof typeof commands
+type ICommands = keyof typeof commands
 
-export const commandsList = Object.keys(commands)
+const commandsList = Object.keys(commands)
+
+export {
+    ICommands,
+    commandsList
+}
 
 export default commands

@@ -1,10 +1,9 @@
 declare global {
     namespace NodeJS {
       interface ProcessEnv {
-        TOKEN: string
         PREFIX: string
-        ID_ADMIN: string
-        URL_INVITE: string
+        PREFIX_ARGS: string
+        TOKEN_DISCORD: string
         ACCESS_KEY_UNSPLASH: string
       }
     }
