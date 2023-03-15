@@ -15,12 +15,12 @@
   "dependencies": {
     "axios": "^0.26.0",
     "chalk": "^4.1.2",
-    "discord.js": "^13.13.1",
+    "discord.js": "^13.14.0",
     "dotenv": "^16.0.2",
     "unsplash-js": "^7.0.15"
   },
   "devDependencies": {
-    "@types/archiver": "^5.3.1",
+    "@types/archiver": "^5.3.2",
     "@types/axios": "^0.14.0",
     "@types/node": "^17.0.45",
     "@types/unsplash-js": "^7.0.0",
