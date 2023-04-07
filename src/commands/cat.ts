@@ -1,4 +1,4 @@
-import { Message } from 'discord.js'
+import { ICommand } from '../types'
 import axios from 'axios'
 
 interface IRequest {
@@ -7,10 +7,18 @@ interface IRequest {
 
 const baseURL = 'https://cataas.com'
 
-async function cat(msg: Message) {
-    const { data } = await axios.get<IRequest>(`${baseURL}/cat?json=true`)
-    
-    msg.reply(`${baseURL}${data.url}`)
+const cat: ICommand = {
+    name: 'cat',
+    type: 'CHAT_INPUT',
+    description: 'Foto de gato',
+    run: async interaction => {
+        const { data } = await axios.get<IRequest>(`${baseURL}/cat?json=true`)
+
+        await interaction.followUp({
+            ephemeral: true,
+            content: `${baseURL}${data.url}`
+        })
+    }
 }
 
 export default cat

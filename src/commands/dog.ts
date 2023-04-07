@@ -1,4 +1,5 @@
-import { Message } from 'discord.js'
+import { ApplicationCommandOptionData } from 'discord.js'
+import { ICommand } from '../types'
 import axios from 'axios'
 
 interface IRequest {
@@ -7,22 +8,36 @@ interface IRequest {
 
 const baseURL = 'https://dog.ceo/api'
 
-async function dog(msg: Message, args: string[]) {
-    const url = args[0] ? `${baseURL}/breed/${args[0]}/images/random` : `${baseURL}/breeds/image/random`
+const options: ApplicationCommandOptionData[] = [
+    {
+        name: 'breed',
+        type: 'STRING',
+        description: 'Raça do cachorro'
+    }
+]
 
-    try {
-        const { data } = await axios.get<IRequest>(url)
-    
-        msg.reply({
-            files: [
-                data.message
-            ]
-        })
-    } catch {
-        if (args[0]) {
-            msg.reply('Essa raça não está disponível \:confused:')
-        } else {
-            msg.reply('Houve um erro ao pegar a foto \:confused:')
+const dog: ICommand = {
+    name: 'dog',
+    options: options,
+    type: 'CHAT_INPUT',
+    description: 'Foto de cachorro',
+    run: async interaction => {
+        const { value: breed } = interaction.options.get('breed') || { value: null }
+        const url = breed ? `${baseURL}/breed/${breed}/images/random` : `${baseURL}/breeds/image/random`
+
+        try {
+            const { data } = await axios.get<IRequest>(url)
+        
+            await interaction.followUp({
+                ephemeral: true,
+                files: [data.message]
+            })
+        } catch {
+            if (breed) {
+                interaction.followUp('Essa raça não está disponível \:confused:')
+            } else {
+                interaction.followUp('Houve um erro ao pegar a foto \:confused:')
+            }
         }
     }
 }

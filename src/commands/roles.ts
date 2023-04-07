@@ -1,14 +1,22 @@
-import { Message } from 'discord.js'
+import { ICommand } from '../types'
 
-async function roles(msg: Message) {
-    const rolesMap = (await msg.guild.roles.fetch()).map(role => role)
-    let msgRoles = '**Cargos**\n\n'
+const roles: ICommand = {
+    name: 'roles',
+    type: 'CHAT_INPUT',
+    description: 'Cargos',
+    run: async interaction => {
+        const rolesMap = (await interaction.guild.roles.fetch()).map(role => role)
+        let msgRoles = '**Cargos**\n\n'
 
-    rolesMap.map(role => (
-        msgRoles += `> ${role.name.startsWith('@') ? role.name : `<@&${role.id}>`}\n`
-    ))
+        rolesMap.map(role => (
+            msgRoles += `> ${role.name.startsWith('@') ? role.name : `<@&${role.id}>`}\n`
+        ))
 
-    msg.reply(msgRoles)
+        interaction.followUp({
+            ephemeral: true,
+            content: msgRoles
+        })
+    }
 }
 
 export default roles

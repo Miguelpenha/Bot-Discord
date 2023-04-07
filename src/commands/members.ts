@@ -1,14 +1,22 @@
-import { Message } from 'discord.js'
+import { ICommand } from '../types'
 
-async function members(msg: Message) {
-    const members = await msg.guild.members.fetch()
-    let msgMembers = '**Membros do servidor**\n\n'
-    
-    members.map(member => (
-        msgMembers += `> <@${member.id}>\n`
-    ))
-    
-    msg.reply(msgMembers)
+const members: ICommand = {
+    name: 'members',
+    type: 'CHAT_INPUT',
+    description: 'Membros',
+    run: async interaction => {
+        const members = await interaction.guild.members.fetch()
+        let msgMembers = '**Membros do servidor**\n\n'
+        
+        members.map(member => (
+            msgMembers += `> <@${member.id}>\n`
+        ))
+        
+        interaction.followUp({
+            ephemeral: true,
+            content: msgMembers
+        })
+    }
 }
 
 export default members

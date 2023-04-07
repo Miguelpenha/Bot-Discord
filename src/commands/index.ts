@@ -5,22 +5,6 @@ import image from './image'
 import roles from './roles'
 import members from './members'
 
-const commands = {
-    cat,
-    dog,
-    help,
-    image,
-    roles,
-    members
-}
-
-type ICommands = keyof typeof commands
-
-const commandsList = Object.keys(commands)
-
-export {
-    ICommands,
-    commandsList
-}
+const commands = [cat, dog, help, image, roles, members]
 
 export default commands
