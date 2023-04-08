@@ -27,7 +27,7 @@ const dog: ICommand = {
 
         try {
             const { data } = await axios.get<IRequest>(url)
-        
+            
             await interaction.followUp({
                 ephemeral: true,
                 files: [data.message]
