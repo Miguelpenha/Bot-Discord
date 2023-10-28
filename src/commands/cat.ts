@@ -2,7 +2,7 @@ import { ICommand } from '../types'
 import axios from 'axios'
 
 interface IRequest {
-    url: string
+    _id: string
 }
 
 const baseURL = 'https://cataas.com'
@@ -16,7 +16,7 @@ const cat: ICommand = {
 
         await interaction.followUp({
             ephemeral: true,
-            content: `${baseURL}${data.url}`
+            content: `${baseURL}/cat/${data._id}`
         })
     }
 }
