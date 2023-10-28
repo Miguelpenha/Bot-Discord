@@ -1,15 +1,22 @@
-name: update
+name: commit
 on: push
 
 jobs:
   build:
-    name: EAS update android
+    name: Commit bot
     runs-on: ubuntu-latest
     steps:
       - name: Check for ENV_FILE
         run: |
           if [ -z "${{ secrets.ENV_FILE }}" ]; then
             echo "ENV_FILE is missing"
+            exit 1
+          fi
+        
+      - name: Check for DISCLOUD_CONFIG
+        run: |
+          if [ -z "${{ secrets.DISCLOUD_CONFIG }}" ]; then
+            echo "DISCLOUD_CONFIG is missing"
             exit 1
           fi
 
@@ -41,6 +48,11 @@ jobs:
         run: |
           touch .env
           echo "${{ secrets.ENV_FILE}}" >> .env
+      
+      - name: Create discloud.config File
+        run: |
+          touch discloud.config
+          echo "${{ secrets.DISCLOUD_CONFIG}}" >> discloud.config
 
       - name: Commit bot
         run: npm run publish
