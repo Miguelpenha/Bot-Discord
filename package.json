@@ -4,9 +4,9 @@
   "description": "Um bot para usar no Discord",
   "main": "index.js",
   "scripts": {
-    "start": "npx tsc && node index.js",
-    "build": "npx tsc && ts-node environment/build",
-    "publish": "npm run build && discloud commit Bot-Discord.zip",
+    "start": "npx tsc && node dist/index.js",
+    "publish": "npm run build && npx tsc && node dist/environment",
+    "build": "npx tsc && node dist/environment/build",
     "dev": "ts-node-dev --respawn --ignore-watch node_modules src/index.ts"
   },
   "keywords": [],
@@ -15,6 +15,7 @@
   "dependencies": {
     "axios": "^0.26.1",
     "chalk": "^4.1.2",
+    "discloud.app": "^0.9.3",
     "discord.js": "^13.16.0",
     "dotenv": "^16.3.1",
     "unsplash-js": "^7.0.18"

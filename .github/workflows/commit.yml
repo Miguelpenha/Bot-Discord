@@ -1,0 +1,46 @@
+name: update
+on: push
+
+jobs:
+  build:
+    name: EAS update android
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for ENV_FILE
+        run: |
+          if [ -z "${{ secrets.ENV_FILE }}" ]; then
+            echo "ENV_FILE is missing"
+            exit 1
+          fi
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+          cache: npm
+
+      - name: Find npm cache
+        shell: bash
+        id: npm-cache-dir
+        run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+
+      - name: Restore cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
+      
+      - name: Install dependencies
+        run: npm install
+
+      - name: Create .env File
+        run: |
+          touch .env
+          echo "${{ secrets.ENV_FILE}}" >> .env
+
+      - name: Commit bot
+        run: npm run publish
