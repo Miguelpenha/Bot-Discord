@@ -39,13 +39,13 @@
 ```
 **Cargos**
 ```ts
-!members
+!roles
 
 // Retorna os cargos do servidor
 ```
 **Membros**
 ```ts
-!roles
+!members
 
 // Retorna os membros do servidor
 ```
