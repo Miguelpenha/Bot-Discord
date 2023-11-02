@@ -4,7 +4,8 @@ import fs from 'fs'
 import path from 'path'
 
 async function commit() {
-    const pathZip = path.resolve(__dirname, '..', '..', 'Bot-Discord.zip')
+    const pathDefault = path.resolve(__dirname, '..', '..')
+    const pathZip = path.resolve(pathDefault, 'Bot-Discord.zip')
 
     await discloud.login(process.env.TOKEN_DISCLOUD)
 
@@ -17,7 +18,9 @@ async function commit() {
 
     console.log(success(`>> ${update.message}`))
     
-    fs.rmSync(pathZip)
+    fs.rmSync(pathZip, { recursive: true })
+
+    fs.rmSync(path.resolve(pathDefault, 'dist'), { recursive: true })
 }
 
 export default commit

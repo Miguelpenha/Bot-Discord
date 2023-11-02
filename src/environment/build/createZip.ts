@@ -1,18 +1,23 @@
+import { greenBright as success, bold, blueBright as info, redBright as error } from 'chalk'
 import fs from 'fs'
 import { zipPath, newPath } from './utils'
 import archiver from 'archiver'
-import remove from './remove'
 
 function createZip() {
-    const out = fs.createWriteStream(zipPath)
+    console.log(success(`>> Começando a construção de ${bold('Bot-Discord.zip')}`))
 
+    const out = fs.createWriteStream(zipPath)
     const zip = archiver('zip')
 
     zip.pipe(out)
 
     zip.directory(newPath, false)
 
-    zip.finalize().then(() => remove(''))
+    zip.finalize().then(() => (
+        fs.rmSync(newPath, { recursive: true })
+    ))
+
+    console.log(success(`>> ${bold('Bot-Discord.zip')} criado`))
 }
 
 export default createZip

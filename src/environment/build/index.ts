@@ -1,10 +1,15 @@
 import fs from 'fs'
 import { newPath } from './utils'
-import remove from './remove'
+import { redBright as error, bold } from 'chalk'
+import path from 'path'
 import buildFolder from './buildFolder'
 
 const isExists = fs.existsSync(newPath)
 
-isExists && remove('')
+if (isExists) {
+    console.log(error(`>> Pasta ${bold('Bot-Discord')} antiga excluída`))
+
+    fs.rmSync(path.resolve(newPath), { recursive: true })
+}
 
 buildFolder()
