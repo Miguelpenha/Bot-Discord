@@ -1,10 +1,10 @@
 import fs from 'fs'
-import path from 'path'
-import { oldPath, newPath } from './utils'
+import { zipPath, newPath } from './utils'
 import archiver from 'archiver'
+import remove from './remove'
 
 function createZip() {
-    const out = fs.createWriteStream(path.resolve(oldPath, 'Bot-Discord.zip'))
+    const out = fs.createWriteStream(zipPath)
 
     const zip = archiver('zip')
 
@@ -12,9 +12,7 @@ function createZip() {
 
     zip.directory(newPath, false)
 
-    zip.finalize().then(() => (
-        fs.rmSync(newPath, { recursive: true })
-    ))
+    zip.finalize().then(() => remove(''))
 }
 
 export default createZip

@@ -1,7 +1,8 @@
 import fs from 'fs'
 import path from 'path'
-import { oldPath, newPath } from './utils'
+import { oldPath, newPath, zipPath } from './utils'
 import move from './move'
+import remove from './remove'
 import createZip from './createZip'
 
 function build() {
@@ -12,9 +13,12 @@ function build() {
     move('discloud.config')
     move('README.md')
 
-    const isExists = fs.existsSync(path.resolve(oldPath, 'Bot-Discord.zip'))
+    remove('environment')
+    remove('discloud.config')
 
-    isExists && fs.rmSync(path.resolve(oldPath, 'Bot-Discord.zip'), { recursive: true })
+    const isExists = fs.existsSync(zipPath)
+
+    isExists && fs.rmSync(zipPath, { recursive: true })
 
     createZip()
 }
