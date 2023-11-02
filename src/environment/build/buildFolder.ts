@@ -14,7 +14,6 @@ function build() {
     move('README.md')
 
     remove('environment')
-    remove('discloud.config')
 
     const isExists = fs.existsSync(zipPath)
 
