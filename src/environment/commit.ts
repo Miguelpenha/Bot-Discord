@@ -17,7 +17,7 @@ async function commit() {
 
     console.log(success(`>> ${update.message}`))
     
-    fs.rmdirSync(pathZip)
+    fs.rmSync(pathZip)
 }
 
 export default commit
