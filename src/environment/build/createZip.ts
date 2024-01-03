@@ -1,4 +1,4 @@
-import { greenBright as success, bold, blueBright as info, redBright as error } from 'chalk'
+import { greenBright as success, bold } from 'chalk'
 import fs from 'fs'
 import { zipPath, newPath } from './utils'
 import archiver from 'archiver'
