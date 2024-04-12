@@ -9,7 +9,7 @@
 ```ts
 !help
 
-// Retorna uma lista dos comandos
+// Retorna a lista de comandos
 ```
 
 **Foto de gato**
