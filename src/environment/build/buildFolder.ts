@@ -18,6 +18,7 @@ function build() {
     move('.env')
     move('README.md')
     move('package.json')
+    move('discloud.config')
 
     console.log(error(`>> Arquivos/pastas removidos de ${bold('Bot-Discord')}`))
 
